@@ -57,7 +57,15 @@ namespace NetSpeed
 
         private void About(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("QQ : 1575375168\r\n微信 : Guodcx\r\nGithub : https://github.com/zou-z/NetSpeed\r\n邮箱 : zzvr@outlook.com\r\n版本 : 1.0.0.0");
+            string[] about = new string[]
+            {
+                "QQ : 1575375168",
+                "微信 : Guodcx",
+                "邮箱 : zzvr@outlook.com",
+                "版本 : "+Application.ResourceAssembly.GetName().Version.ToString(),
+                "Github : https://github.com/zou-z/NetSpeed"
+            };
+            MessageBox.Show(about[0] + "\r\n" + about[1] + "\r\n" + about[2] + "\r\n" +about[3]+"\r\n"+ about[4]);
         }
 
         private void ChangePinState(object sender, RoutedEventArgs e)
