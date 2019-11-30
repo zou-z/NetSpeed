@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetSpeed"
         mc:Ignorable="d"
-        Title="MainWindow" Height="32" Width="65" Background="#1F362B2B"
+        Title="MainWindow" Height="36" Width="65" Background="#1F000000"
         Loaded="Window_Loaded"
-        WindowStyle="None" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False">
+        WindowStyle="None" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False" AllowsTransparency="True">
+    <Window.Effect>
+        <DropShadowEffect Color="Black" BlurRadius="10"/>
+    </Window.Effect>
     <Window.ContextMenu>
         <ContextMenu>
             <MenuItem x:Name="PinState" Header="取消固定位置" Click="ChangePinState">
@@ -49,7 +52,7 @@
             </MenuItem>
         </ContextMenu>
     </Window.ContextMenu>
-    <Grid>
+    <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="18"/>
             <ColumnDefinition Width="*"/>
