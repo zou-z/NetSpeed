@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -53,3 +54,22 @@ namespace NetSpeed
         }
     }
 }
+=======
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+
+namespace NetSpeed
+{
+    /// <summary>
+    /// App.xaml 的交互逻辑
+    /// </summary>
+    public partial class App : Application
+    {
+    }
+}
+>>>>>>> 85550e0aa6c67e8e16422bd4b7157dbbd24605a1

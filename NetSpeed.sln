@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
@@ -23,3 +24,30 @@ Global
 		SolutionGuid = {67C2853F-A925-4AE8-BF51-AC3C5ED78AEB}
 	EndGlobalSection
 EndGlobal
+=======
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSpeed", "NetSpeed\NetSpeed.csproj", "{3CFC23E4-7338-4953-A9A1-B454E425B392}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3CFC23E4-7338-4953-A9A1-B454E425B392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CFC23E4-7338-4953-A9A1-B454E425B392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CFC23E4-7338-4953-A9A1-B454E425B392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CFC23E4-7338-4953-A9A1-B454E425B392}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65C96727-0B73-45D2-9F96-9EE056592325}
+	EndGlobalSection
+EndGlobal
+>>>>>>> 85550e0aa6c67e8e16422bd4b7157dbbd24605a1
