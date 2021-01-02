@@ -29,7 +29,7 @@
                     <ControlTemplate TargetType="{x:Type MenuItem}">
                         <StackPanel Width="135" Margin="0,0,0,10">
                             <TextBlock Text="NetSpeed" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock Text="v1.2.0.0" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                            <TextBlock Text="v1.2.1.0" HorizontalAlignment="Center" Margin="0,8,0,0"/>
                             <TextBlock Text="© 2021 zzh" HorizontalAlignment="Center"/>
                             <TextBox Text="zzvr@outlook.com" Margin="0,8,0,0"/>
                             <TextBlock Text="GitHub" HorizontalAlignment="Center" Style="{StaticResource UrlText}" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp"/>

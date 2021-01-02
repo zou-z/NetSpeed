@@ -15,7 +15,7 @@ namespace NetSpeed.Module
         public MainView()
         {
             InitializeComponent();
-            DownloadSpeedText.Text = UploadSpeedText.Text = "加载中...";
+            DownloadSpeedText.Text = UploadSpeedText.Text = "初始化...";
 
             NetSpeedMenu menu = ContextMenu as NetSpeedMenu;
             netInfo.UpdateSpeed += UpdateSpeed;
@@ -61,7 +61,13 @@ namespace NetSpeed.Module
                 speed /= 1024;
                 ++index;
             }
-            return $"{Math.Round(speed, 2)} {Units[index]}";
+            if (speed < 10)
+                return $"{speed:f2} {Units[index]}";
+            else if (speed < 100)
+                return $"{speed:f1} {Units[index]}";
+            else if (speed < 1024)
+                return $"{speed:f0} {Units[index]}";
+            return $"0.00 {Units[0]}";
         }
 
         private void SetTextColor(Brush color)

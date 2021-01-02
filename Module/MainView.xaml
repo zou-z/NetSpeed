@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetSpeed.Module"
-             Height="40" Width="95">
+             Height="40" Width="75">
     <UserControl.Resources>
         <Style x:Key="ArrowTextStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="9"/>
@@ -18,16 +18,17 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="5,0,0,0"/>
             <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="FontWeight" Value="Thin"/>
         </Style>
     </UserControl.Resources>
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
         <WrapPanel>
             <TextBlock Text="&#xE74A;" Style="{StaticResource ArrowTextStyle}"/>
-            <TextBlock x:Name="UploadSpeedText" Text="1012.34 MB/S" Style="{StaticResource SpeedTextStyle}"/>
+            <TextBlock x:Name="UploadSpeedText" Text="1023 MB/S" Style="{StaticResource SpeedTextStyle}"/>
         </WrapPanel>
-        <WrapPanel Margin="0,1,0,0">
+        <WrapPanel>
             <TextBlock Text="&#xE74B;" Style="{StaticResource ArrowTextStyle}"/>
-            <TextBlock x:Name="DownloadSpeedText" Text="加载中..." Style="{StaticResource SpeedTextStyle}"/>
+            <TextBlock x:Name="DownloadSpeedText" Text="初始化..." Style="{StaticResource SpeedTextStyle}"/>
         </WrapPanel>
     </StackPanel>
     <UserControl.ContextMenu>

@@ -18,7 +18,7 @@ namespace NetSpeed
             try
             {
                 mainView = new MainView();
-                Options.MinHorizontalSize = new DeskBandSize(95, 40);
+                Options.MinHorizontalSize = new DeskBandSize(75, 40);
             }
             catch (Exception e)
             {
