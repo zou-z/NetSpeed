@@ -24,7 +24,7 @@
                             <TextBlock x:Name="icon" Text="{TemplateBinding Icon}" FontSize="15" Foreground="Black" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <TextBlock x:Name="header" Grid.Column="1" Text="{TemplateBinding Header}" Foreground="Black" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                             <TextBlock x:Name="has_items" Grid.Column="2" Visibility="Collapsed" Text="&#xE00F;" FontSize="11" Foreground="Black" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" TextOptions.TextFormattingMode="Display"/>
-                            <Popup Placement="Right" x:Name="SubMenuPopup" AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsSubmenuOpen}" HorizontalOffset="-8" VerticalOffset="-8">
+                            <Popup Placement="Right" x:Name="SubMenuPopup" AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsSubmenuOpen}">
                                 <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled">
                                     <Grid Margin="8">
                                         <Border Style="{StaticResource ContextMenuBackground}" Effect="{StaticResource ContextMenuShadow}"/>
@@ -61,8 +61,6 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="HorizontalOffset" Value="-8"/>
-            <Setter Property="VerticalOffset" Value="-8"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContextMenu}">

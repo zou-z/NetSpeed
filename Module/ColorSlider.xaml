@@ -39,8 +39,17 @@
                                             <Thumb.Template>
                                                 <ControlTemplate TargetType="{x:Type Thumb}">
                                                     <Grid>
-                                                        <Ellipse x:Name="ellipse" Width="15" Height="15" Fill="White" Stroke="RoyalBlue" StrokeThickness="2"/>
-                                                        <TextBlock x:Name="color_text" Visibility="Collapsed" Text="{TemplateBinding Tag}" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,-15,0,0"/>
+                                                        <Ellipse x:Name="ellipse" Width="15" Height="15" Fill="White" Stroke="RoyalBlue" StrokeThickness="4"/>
+                                                        <Canvas x:Name="color_text" Visibility="Collapsed">
+                                                            <Grid Canvas.Bottom="20">
+                                                                <Path Fill="White" Stroke="Black" StrokeThickness="1" SnapsToDevicePixels="True">
+                                                                    <Path.Data>
+                                                                        M4,0 11,0 C11,0 15,0 15,4 L15,11 C15,11 15,15 11,15 L4,15 C4,15 0,15 0,11 L0,4 C0,4 0,0 4,0
+                                                                    </Path.Data>
+                                                                </Path>
+                                                                <TextBlock Text="{TemplateBinding Tag}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Grid>
+                                                        </Canvas>
                                                     </Grid>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
