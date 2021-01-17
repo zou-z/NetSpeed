@@ -26,7 +26,7 @@
             <TextBlock Text="&#xE74A;" Style="{StaticResource ArrowTextStyle}"/>
             <TextBlock x:Name="UploadSpeedText" Text="1023 MB/S" Style="{StaticResource SpeedTextStyle}"/>
         </WrapPanel>
-        <WrapPanel Margin="0,1,0,0">
+        <WrapPanel>
             <TextBlock Text="&#xE74B;" Style="{StaticResource ArrowTextStyle}"/>
             <TextBlock x:Name="DownloadSpeedText" Text="初始化..." Style="{StaticResource SpeedTextStyle}"/>
         </WrapPanel>
