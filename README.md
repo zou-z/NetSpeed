@@ -57,6 +57,15 @@
    contentControl.Content = mainView;
    ```
 
+## 备注
+
+* 如果注册了dll，那么在重新生成项目之前或是删除dll文件之前，需要在任务管理器中重启文件管理器(explorer)。因为它会占用dll文件。
+* 注册命令中`/codebase`参数不可缺少（否则无法运行）。与没有此参数的命令的执行结果相比注册表中会多一个记录dll路径的codebase项。
+
+   
+
+   
+
    
 
 
