@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="NetSpeed.View.SpeedView"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetSpeed.View"
+             xmlns:vm="clr-namespace:NetSpeed.ViewModel"
+             DataContext="{Binding Source={x:Static vm:VMLocator.VMSpeedView}}"
+             Height="40" Width="75">
+    <UserControl.Resources>
+        <Style x:Key="ArrowTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        </Style>
+        <Style x:Key="SpeedTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="FontWeight" Value="Thin"/>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+        <WrapPanel>
+            <TextBlock Text="&#xE74A;" Style="{StaticResource ArrowTextStyle}"/>
+            <TextBlock Text="{Binding Path=UploadSpeedText}" Style="{StaticResource SpeedTextStyle}"/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="&#xE74B;" Style="{StaticResource ArrowTextStyle}"/>
+            <TextBlock Text="{Binding Path=DownloadSpeedText}" Style="{StaticResource SpeedTextStyle}"/>
+        </WrapPanel>
+    </StackPanel>
+    <UserControl.ContextMenu>
+        <local:SpeedViewMenu/>
+    </UserControl.ContextMenu>
+</UserControl>

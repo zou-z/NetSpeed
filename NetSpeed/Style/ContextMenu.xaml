@@ -1,0 +1,68 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DropShadowEffect x:Key="ContextMenuShadow" Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.3"/>
+    <Style x:Key="ContextMenuBackground" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="4"/>
+    </Style>
+    <Style TargetType="{x:Type MenuItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Grid x:Name="grid" Height="30" Background="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="36"/>
+                            <ColumnDefinition Width="*" MinWidth="80" MaxWidth="300"/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="icon" Text="{TemplateBinding Icon}" FontSize="15" Foreground="Black" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock x:Name="header" Grid.Column="1" Text="{TemplateBinding Header}" Foreground="Black" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="has_items" Grid.Column="2" Visibility="Collapsed" Text="&#xE00F;" FontSize="11" Foreground="Black" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" TextOptions.TextFormattingMode="Display"/>
+                        <Popup Placement="Right" x:Name="SubMenuPopup" AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsSubmenuOpen}">
+                            <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled">
+                                <Grid Margin="8">
+                                    <Border Style="{StaticResource ContextMenuBackground}" Effect="{StaticResource ContextMenuShadow}"/>
+                                    <ItemsPresenter Margin="0,8,0,8"/>
+                                </Grid>
+                            </ScrollViewer>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasItems" Value="True">
+                            <Setter TargetName="has_items" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="grid" Property="Background" Value="#E7E7E7"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="header" Property="Foreground" Value="Gray"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Icon,RelativeSource={RelativeSource Self}}" Value="&#xE001;">
+                            <Setter TargetName="icon" Property="Foreground" Value="#0ed145"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="DefaultContextMenuStyle" TargetType="{x:Type ContextMenu}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Grid Margin="8">
+                        <Border Style="{StaticResource ContextMenuBackground}" Effect="{StaticResource ContextMenuShadow}"/>
+                        <ItemsPresenter Margin="0,8,0,8"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

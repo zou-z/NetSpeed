@@ -1,4 +1,10 @@
 # NetSpeed
+
+
+**正在重构项目...**
+
+
+
 系统任务栏实时网速显示工具
 
 ## 截图
@@ -28,6 +34,8 @@
 1. 将解压出来的三个文件存放在硬盘中合适的位置（例如一个专门存放软件的文件夹下）。
 2. 以`管理员身份`运行install.cmd文件。
 
+在卸载旧版后需要重启文件管理器（任务管理器中叫：Windows 资源管理器），然后安装新版
+
 ### 卸载
 
 1. 以`管理员身份`运行uninstall.cmd文件。
@@ -56,6 +64,8 @@
    NetSpeed.Module.MainView mainView = new NetSpeed.Module.MainView();
    contentControl.Content = mainView;
    ```
+
+// 砍掉
 
 ## 备注
 
