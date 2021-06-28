@@ -39,12 +39,13 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="grid" Property="Background" Value="#E7E7E7"/>
                         </MultiTrigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="header" Property="Foreground" Value="Gray"/>
-                        </Trigger>
                         <DataTrigger Binding="{Binding Icon,RelativeSource={RelativeSource Self}}" Value="&#xE001;">
                             <Setter TargetName="icon" Property="Foreground" Value="#0ed145"/>
                         </DataTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="header" Property="Foreground" Value="Gray"/>
+                            <Setter TargetName="icon" Property="Foreground" Value="Gray"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

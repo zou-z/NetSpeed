@@ -43,14 +43,15 @@ namespace NetSpeed.Util
                     _ = System.Windows.MessageBox.Show("无网络适配器");
                     return adapters;
                 }
-
-
-
-                /*
-                 刷新适配器列表
-                1.获取适配器列表
-                2.如果原先选择的适配器不在了，选择默认的适配器
-                 */
+                for (int i = 0; i < adapters.Length; ++i)
+                {
+                    if (adapter.Id == adapters[i].Id)
+                    {
+                        SetAdapter(adapters[i]);
+                        return adapters;
+                    }
+                }
+                SetDefaultAdapter();
             }
             return adapters;
         }

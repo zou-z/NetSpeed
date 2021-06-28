@@ -6,7 +6,7 @@ namespace NetSpeed.Interface
     internal interface INetInfo
     {
         /// <summary>
-        /// 更新上下行网速
+        /// 更新上下行网速事件
         /// </summary>
         event Action<long, long> UpdateSpeed;
 

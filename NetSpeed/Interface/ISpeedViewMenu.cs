@@ -11,6 +11,11 @@ namespace NetSpeed.Interface
         event Func<string, int> SelectedAdapter;
 
         /// <summary>
+        /// 刷新网络适配器列表事件
+        /// </summary>
+        event Action RefreshedAdapterList;
+
+        /// <summary>
         /// 更新网络适配器列表
         /// </summary>
         /// <param name="adapters">

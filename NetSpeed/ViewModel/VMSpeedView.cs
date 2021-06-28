@@ -37,6 +37,10 @@ namespace NetSpeed.ViewModel
             this.speedViewMenu = speedViewMenu;
             this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(), netInfo.GetAdapter());
             this.speedViewMenu.SelectedAdapter += SpeedViewMenu_SelectedAdapter;
+            this.speedViewMenu.RefreshedAdapterList += () =>
+            {
+                this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(true), netInfo.GetAdapter());
+            };
             netInfo.Start();
         }
 

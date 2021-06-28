@@ -2,17 +2,21 @@
 using NetSpeed.Util;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace NetSpeed.ViewModel
 {
     internal class VMSpeedViewMenu : NotifyBase, ISpeedViewMenu
     {
         public event Func<string, int> SelectedAdapter;
+        public event Action RefreshedAdapterList;
 
         private List<MenuItem> items = new List<MenuItem>();
+        private readonly ObservableCollection<Control> adapterList = new ObservableCollection<Control>();
 
         public List<MenuItem> Items
         {
@@ -22,28 +26,30 @@ namespace NetSpeed.ViewModel
 
         public VMSpeedViewMenu()
         {
-            Items.Add(new MenuItem
+            Items.Add(new MenuItem { Header = "网络适配器", Icon = "\xEDA3", });
+            Items.Add(new MenuItem { Header = "设置" });
+            Items.Add(new MenuItem { Header = "关于", Icon = "\xE946" });
+
+            adapterList.Add(new Separator { Margin = new Thickness(0, 7, 20, 7) });
+            adapterList.Add(new MenuItem
             {
-                Header = "网络适配器",
-                Icon = "\xEDA3",
+                Header = "刷新列表",
+                Icon = "\xE149",
+                StaysOpenOnClick = true,
+                Command = new RelayCommand(RefreshAdapterList)
             });
-            Items.Add(new MenuItem
-            {
-                Header = "设置",
-            });
-            Items.Add(new MenuItem
-            {
-                Header = "关于",
-                Icon = "\xE946"
-            });
+            Items[0].ItemsSource = adapterList;
         }
 
         public void UpdateAdapterList(NetworkInterface[] adapters, NetworkInterface adapter)
         {
-            List<FrameworkElement> list = new List<FrameworkElement>();
+            while (adapterList.Count > 2)
+            {
+                adapterList.RemoveAt(0);
+            }
             for (int i = 0; i < adapters.Length; ++i)
             {
-                MenuItem mi = new MenuItem
+                MenuItem item = new MenuItem
                 {
                     Header = adapters[i].Description,
                     Icon = adapters[i].Equals(adapter) ? "\xE001" : "",
@@ -52,31 +58,23 @@ namespace NetSpeed.ViewModel
                     Command = new RelayCommand<string>(SelectAdapter),
                     CommandParameter = adapters[i].Id,
                 };
-                list.Add(mi);
+                adapterList.Insert(i, item);
             }
-            list.Add(new Separator { Margin = new Thickness(0, 7, 20, 7) });
-            list.Add(new MenuItem
-            {
-                Header = "刷新列表",
-                Icon = "\xE149",
-                StaysOpenOnClick = true,
-                Command = new RelayCommand(() =>
-                {
-                    System.Diagnostics.Debug.WriteLine("ttt");
-                })
-            });
-            Items[0].ItemsSource = list;
         }
 
         private void SelectAdapter(string adapterId)
         {
-            int result = SelectedAdapter(adapterId);
+            int? result = SelectedAdapter?.Invoke(adapterId);
+            if (result == null)
+            {
+                return;
+            }
             if (result == 0)
             {
-                for (int i = 0; i < Items[0].Items.Count - 2; ++i)
+                for (int i = 0; i < adapterList.Count - 2; ++i)
                 {
-                    MenuItem mi = (MenuItem)Items[0].Items[i];
-                    mi.Icon = mi.CommandParameter.ToString() == adapterId ? "\xE001" : "";
+                    MenuItem item = (MenuItem)adapterList[i];
+                    item.Icon = item.CommandParameter.ToString() == adapterId ? "\xE001" : null;
                 }
             }
             else
@@ -91,6 +89,34 @@ namespace NetSpeed.ViewModel
                 }
                 _ = MessageBox.Show(adapterId);
             }
+        }
+
+        private void RefreshAdapterList()
+        {
+            if (RefreshedAdapterList == null)
+            {
+                return;
+            }
+            MenuItem item = (MenuItem)Items[0].Items[Items[0].Items.Count - 1];
+            item.Header = "正在刷新列表...";
+            item.IsEnabled = false;
+
+            _ = Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
+            {
+                RefreshedAdapterList();
+                item.Header = "已刷新列表";
+                item.Icon = "\xE930";
+                DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1500) };
+                timer.Tick += (sender, e) =>
+                {
+                    timer.Stop();
+                    timer = null;
+                    item.Header = "刷新列表";
+                    item.Icon = "\xE149";
+                    item.IsEnabled = true;
+                };
+                timer.Start();
+            }));
         }
     }
 }
