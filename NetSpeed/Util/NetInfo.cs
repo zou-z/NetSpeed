@@ -1,5 +1,4 @@
-﻿using NetSpeed.DataType;
-using NetSpeed.Interface;
+﻿using NetSpeed.Interface;
 using System;
 using System.Net.NetworkInformation;
 using System.Threading;
@@ -8,11 +7,16 @@ namespace NetSpeed.Util
 {
     internal class NetInfo : INetInfo
     {
-        public event Action<ulong, ulong> UpdateSpeed;
+        public event Action<long, long> UpdateSpeed;
+
         private NetworkInterface[] adapters;
         private NetworkInterface adapter;
+        private IPInterfaceStatistics statistics;
         private Timer timer;
         private bool isRunning = false;
+
+        private long bytesSent = 0;
+        private long bytesReceived = 0;
 
         public NetInfo()
         {
@@ -21,6 +25,7 @@ namespace NetSpeed.Util
             {
                 SetDefaultAdapter();
             }
+            timer = new Timer(Timer_Tick, null, -1, 0);
         }
 
         public NetworkInterface GetAdapter()
@@ -33,6 +38,13 @@ namespace NetSpeed.Util
             if (isRefreshList)
             {
                 adapters = NetworkInterface.GetAllNetworkInterfaces();
+                if (adapters.Length == 0)
+                {
+                    _ = System.Windows.MessageBox.Show("无网络适配器");
+                    return adapters;
+                }
+
+
 
                 /*
                  刷新适配器列表
@@ -64,6 +76,7 @@ namespace NetSpeed.Util
                 {
                     if (adapters[i].Id == adapterId)
                     {
+                        Stop();
                         SetAdapter(adapters[i]);
                         return 0;
                     }
@@ -97,18 +110,44 @@ namespace NetSpeed.Util
 
         public void Start()
         {
-            //timer = new Timer(Timer_Tick)
+            UpdateSpeed?.Invoke(0, 0);
+            if (adapter == null)
+            {
+                _ = System.Windows.Forms.MessageBox.Show("程序无法运行,未选择网络设配器");
+                return;
+            }
 
+            statistics = adapter?.GetIPStatistics();
+            bytesSent = statistics.BytesSent;
+            bytesReceived = statistics.BytesReceived;
+
+            if (timer?.Change(1000, 1000) == true)
+            {
+                isRunning = true;
+            }
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            _ = timer?.Change(-1, 0);
         }
 
         public void Close()
         {
-            throw new NotImplementedException();
+            Stop();
+            timer?.Dispose();
+            timer = null;
+            adapter = null;
+            adapters = null;
+            statistics = null;
+        }
+
+        private void Timer_Tick(object state)
+        {
+            statistics = adapter.GetIPStatistics();
+            UpdateSpeed?.Invoke(statistics.BytesSent - bytesSent, statistics.BytesReceived - bytesReceived);
+            bytesSent = statistics.BytesSent;
+            bytesReceived = statistics.BytesReceived;
         }
     }
 }

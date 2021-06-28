@@ -92,7 +92,5 @@ namespace NetSpeed.ViewModel
                 _ = MessageBox.Show(adapterId);
             }
         }
-
     }
-
 }

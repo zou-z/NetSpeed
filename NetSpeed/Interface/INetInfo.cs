@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.NetworkInformation;
 
 namespace NetSpeed.Interface
@@ -9,7 +8,7 @@ namespace NetSpeed.Interface
         /// <summary>
         /// 更新上下行网速
         /// </summary>
-        event Action<ulong, ulong> UpdateSpeed;
+        event Action<long, long> UpdateSpeed;
 
         /// <summary>
         /// 获取适配器列表
