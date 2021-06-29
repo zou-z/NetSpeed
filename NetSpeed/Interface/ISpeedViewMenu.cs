@@ -16,6 +16,11 @@ namespace NetSpeed.Interface
         event Action RefreshedAdapterList;
 
         /// <summary>
+        /// 重启定时器事件
+        /// </summary>
+        event Action RestartedTimer;
+
+        /// <summary>
         /// 更新网络适配器列表
         /// </summary>
         /// <param name="adapters">

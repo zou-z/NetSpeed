@@ -1,4 +1,5 @@
-﻿using NetSpeed.Interface;
+﻿using NetSpeed.DataType;
+using NetSpeed.Interface;
 using NetSpeed.Util;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,11 @@ namespace NetSpeed.ViewModel
     {
         public event Func<string, int> SelectedAdapter;
         public event Action RefreshedAdapterList;
+        public event Action RestartedTimer;
 
         private List<MenuItem> items = new List<MenuItem>();
         private readonly ObservableCollection<Control> adapterList = new ObservableCollection<Control>();
+        private readonly ObservableCollection<MenuItem> intervalList = new ObservableCollection<MenuItem>();
 
         public List<MenuItem> Items
         {
@@ -26,10 +29,8 @@ namespace NetSpeed.ViewModel
 
         public VMSpeedViewMenu()
         {
+            #region 网络适配器
             Items.Add(new MenuItem { Header = "网络适配器", Icon = "\xEDA3", });
-            Items.Add(new MenuItem { Header = "设置" });
-            Items.Add(new MenuItem { Header = "关于", Icon = "\xE946" });
-
             adapterList.Add(new Separator { Margin = new Thickness(0, 7, 20, 7) });
             adapterList.Add(new MenuItem
             {
@@ -39,6 +40,43 @@ namespace NetSpeed.ViewModel
                 Command = new RelayCommand(RefreshAdapterList)
             });
             Items[0].ItemsSource = adapterList;
+            #endregion
+            #region 设置
+            Items.Add(new MenuItem { Header = "设置", Icon = "\xE115" });
+            #region 刷新间隔
+            Items[1].Items.Add(new MenuItem { Header = "刷新间隔" });
+            int[] intervals = RefreshIntervals.GetValues();
+            for (int i = 0; i < intervals.Length; ++i)
+            {
+                intervalList.Add(new MenuItem
+                {
+                    Header = $"{intervals[i]} 毫秒(ms)",
+                    Icon = AppSetting.RefreshInterval == intervals[i] ? "\xE001" : null,
+                    StaysOpenOnClick = true,
+                    Command = new RelayCommand<int>(RestartTimer),
+                    CommandParameter = intervals[i],
+                    ToolTip = intervals[i] == RefreshIntervals.Default ? "默认值" : null
+                });
+            }
+            MenuItem item = (MenuItem)(Items[1].Items[0]);
+            item.ItemsSource = intervalList;
+            #endregion
+            #region 字体颜色
+            Items[1].Items.Add(new MenuItem { Header = "字体颜色" });
+            item = (MenuItem)(Items[1].Items[1]);
+            item.Items.Add(new MenuItem
+            {
+                Header = "待添加...",
+                StaysOpenOnClick = true
+            });
+
+
+
+            #endregion
+            #endregion
+            #region 关于
+            Items.Add(new MenuItem { Header = "关于", Icon = "\xE946" });
+            #endregion
         }
 
         public void UpdateAdapterList(NetworkInterface[] adapters, NetworkInterface adapter)
@@ -52,7 +90,7 @@ namespace NetSpeed.ViewModel
                 MenuItem item = new MenuItem
                 {
                     Header = adapters[i].Description,
-                    Icon = adapters[i].Equals(adapter) ? "\xE001" : "",
+                    Icon = adapters[i].Equals(adapter) ? "\xE001" : null,
                     ToolTip = adapters[i].GetDetail(),
                     StaysOpenOnClick = true,
                     Command = new RelayCommand<string>(SelectAdapter),
@@ -117,6 +155,29 @@ namespace NetSpeed.ViewModel
                 };
                 timer.Start();
             }));
+        }
+
+        private void RestartTimer(int interval)
+        {
+            foreach(MenuItem item in intervalList)
+            {
+                if(item.Icon == null)
+                {
+                    if((int)item.CommandParameter == interval)
+                    {
+                        item.Icon = "\xE001";
+                        AppSetting.RefreshInterval = interval;
+                        RestartedTimer();
+                    }
+                }
+                else
+                {
+                    if ((int)item.CommandParameter != interval)
+                    {
+                        item.Icon = null;
+                    }
+                }
+            }
         }
     }
 }

@@ -41,6 +41,11 @@ namespace NetSpeed.ViewModel
             {
                 this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(true), netInfo.GetAdapter());
             };
+            this.speedViewMenu.RestartedTimer += () =>
+            {
+                netInfo.Stop();
+                netInfo.Start();
+            };
             netInfo.Start();
         }
 

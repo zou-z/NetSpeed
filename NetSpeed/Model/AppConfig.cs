@@ -11,5 +11,7 @@
         /// 刷新间隔（毫秒）
         /// </summary>
         public int RefreshInterval { get; set; }
+
+        // 字体颜色
     }
 }

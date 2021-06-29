@@ -122,7 +122,7 @@ namespace NetSpeed.Util
             bytesSent = statistics.BytesSent;
             bytesReceived = statistics.BytesReceived;
 
-            if (timer?.Change(1000, 1000) == true)
+            if (timer?.Change(AppSetting.RefreshInterval, AppSetting.RefreshInterval) == true)
             {
                 isRunning = true;
             }
