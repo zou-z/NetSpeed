@@ -13,8 +13,6 @@ namespace NetSpeed.ViewModel
             AppSetting.Init();
             VMSpeedView = new VMSpeedView();
             VMSpeedViewMenu = new VMSpeedViewMenu();
-
-            VMSpeedView.Inject(VMSpeedViewMenu);
         }
     }
 }

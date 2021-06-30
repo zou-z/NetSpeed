@@ -80,6 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\AppSetting.cs" />
     <Compile Include="Util\AppSettingBase.cs" />
+    <Compile Include="Util\AppTimer.cs" />
     <Compile Include="Util\NetInfo.cs" />
     <Compile Include="Util\NetworkInterfaceExtend.cs" />
     <Compile Include="Util\NotifyBase.cs" />

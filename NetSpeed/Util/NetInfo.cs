@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace NetSpeed.Util
 {
-    internal class NetInfo : INetInfo
+    internal class NetInfo
     {
         public event Action<long, long> UpdateSpeed;
 
@@ -20,12 +20,12 @@ namespace NetSpeed.Util
 
         public NetInfo()
         {
-            adapters = NetworkInterface.GetAllNetworkInterfaces();
-            if (SetAdapter(AppSetting.AdapterId) > 0)
-            {
-                SetDefaultAdapter();
-            }
-            timer = new Timer(Timer_Tick, null, -1, 0);
+            //adapters = NetworkInterface.GetAllNetworkInterfaces();
+            //if (SetAdapter(AppSetting.AdapterId) > 0)
+            //{
+            //    SetDefaultAdapter();
+            //}
+            //timer = new Timer(Timer_Tick, null, -1, 0);
         }
 
         public NetworkInterface GetAdapter()
@@ -106,7 +106,7 @@ namespace NetSpeed.Util
         private void SetAdapter(NetworkInterface networkInterface)
         {
             adapter = networkInterface;
-            AppSetting.AdapterId = networkInterface.Id;
+            //AppSetting.AdapterId = networkInterface.Id;
         }
 
         public void Start()

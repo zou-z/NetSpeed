@@ -5,12 +5,11 @@ namespace NetSpeed.ViewModel
 {
     internal class VMSpeedView : NotifyBase
     {
-        private readonly INetInfo netInfo;
-        private ISpeedViewMenu speedViewMenu;
+        private readonly string[] Units = { "B/S", "KB/S", "MB/S", "GB/S" };
+        private readonly AppTimer appTimer;
         private string uploadSpeedText;
         private string downloadSpeedText;
 
-        private readonly string[] Units = { "B/S", "KB/S", "MB/S", "GB/S" };
 
         public string UploadSpeedText
         {
@@ -28,33 +27,34 @@ namespace NetSpeed.ViewModel
         {
             uploadSpeedText = "初始化...";
             downloadSpeedText = "初始化...";
-            netInfo = new NetInfo();
-            netInfo.UpdateSpeed += NetInfo_UpdateSpeed;
+            appTimer = new AppTimer();
+            appTimer.UpdateSpeed += NetInfo_UpdateSpeed;
+            appTimer.Start();
         }
 
         public void Inject(ISpeedViewMenu speedViewMenu)
         {
-            this.speedViewMenu = speedViewMenu;
-            this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(), netInfo.GetAdapter());
-            this.speedViewMenu.SelectedAdapter += SpeedViewMenu_SelectedAdapter;
-            this.speedViewMenu.RefreshedAdapterList += () =>
-            {
-                this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(true), netInfo.GetAdapter());
-            };
-            this.speedViewMenu.RestartedTimer += () =>
-            {
-                netInfo.Stop();
-                netInfo.Start();
-            };
-            netInfo.Start();
+            //this.speedViewMenu = speedViewMenu;
+            //this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(), netInfo.GetAdapter());
+            //this.speedViewMenu.SelectedAdapter += SpeedViewMenu_SelectedAdapter;
+            //this.speedViewMenu.RefreshedAdapterList += () =>
+            //{
+            //    this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(true), netInfo.GetAdapter());
+            //};
+            //this.speedViewMenu.RestartedTimer += () =>
+            //{
+            //    netInfo.Stop();
+            //    netInfo.Start();
+            //};
+            //netInfo.Start();
         }
 
-        private int SpeedViewMenu_SelectedAdapter(string adapterId)
-        {
-            int result = netInfo.SetAdapter(adapterId);
-            netInfo.Start();
-            return result;
-        }
+        //private int SpeedViewMenu_SelectedAdapter(string adapterId)
+        //{
+        //    int result = netInfo.SetAdapter(adapterId);
+        //    netInfo.Start();
+        //    return result;
+        //}
 
         private void NetInfo_UpdateSpeed(long upload, long download)
         {
