@@ -1,5 +1,4 @@
-﻿using NetSpeed.DataType;
-using NetSpeed.Interface;
+﻿using NetSpeed.Interface;
 using NetSpeed.Util;
 using System;
 using System.Collections.Generic;
@@ -63,14 +62,14 @@ namespace NetSpeed.ViewModel
 
         private void SetRefreshIntervalMenu()
         {
-            int[] intervals = RefreshIntervals.GetValues();
+            int[] intervals = AppSetting.RefreshIntervals.GetValues();
             for (int i = 0; i < intervals.Length; ++i)
             {
                 RefreshIntervalMenu.Add(new MenuItem
                 {
                     Header = $"{intervals[i]} 毫秒(ms)",
                     Icon = AppSetting.RefreshInterval == intervals[i] ? "\xE001" : null,
-                    ToolTip = intervals[i] == RefreshIntervals.Default ? "默认值" : null,
+                    ToolTip = intervals[i] == AppSetting.RefreshIntervals.Default ? "默认值" : null,
                     StaysOpenOnClick = true,
                     //Command = new RelayCommand<int>(RestartTimer),
                     //CommandParameter = intervals[i],

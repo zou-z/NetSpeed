@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="Core\CSDeskBand.cs" />
     <Compile Include="Core\NetInfo.cs" />
-    <Compile Include="DataType\RefreshIntervals.cs" />
     <Compile Include="Interface\INetInfo.cs" />
     <Compile Include="Interface\ISpeedViewMenu.cs" />
     <Compile Include="Model\AppConfig.cs" />
@@ -81,7 +80,6 @@
     <Compile Include="Util\AppSetting.cs" />
     <Compile Include="Util\AppSettingBase.cs" />
     <Compile Include="Util\AppTimer.cs" />
-    <Compile Include="Util\NetInfo.cs" />
     <Compile Include="Util\NetworkInterfaceExtend.cs" />
     <Compile Include="Util\NotifyBase.cs" />
     <Compile Include="Util\RelayCommand.cs" />

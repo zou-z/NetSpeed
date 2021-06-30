@@ -1,5 +1,4 @@
-﻿using NetSpeed.DataType;
-using NetSpeed.Model;
+﻿using NetSpeed.Model;
 using System.Net.NetworkInformation;
 
 namespace NetSpeed.Util
@@ -7,6 +6,26 @@ namespace NetSpeed.Util
     internal sealed class AppSetting : AppSettingBase<AppConfig>
     {
         private static NetworkInterface selectedAdapter;
+        public struct RefreshIntervals
+        {
+            public const int Interval_1000 = 1000;
+            public const int Interval_500 = 500;
+            public const int Interval_200 = 200;
+            public const int Interval_100 = 100;
+
+            public const int Default = Interval_1000;
+
+            public static int[] GetValues()
+            {
+                return new int[]
+                {
+                Interval_1000,
+                Interval_500,
+                Interval_200,
+                Interval_100
+                };
+            }
+        }
 
         public static NetworkInterface[] AdapterList { get; private set; }
 
