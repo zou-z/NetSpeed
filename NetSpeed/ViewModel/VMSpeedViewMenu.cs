@@ -1,5 +1,6 @@
 ﻿using NetSpeed.Interface;
 using NetSpeed.Util;
+using NetSpeed.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,12 +20,16 @@ namespace NetSpeed.ViewModel
 
         public ObservableCollection<MenuItem> RefreshIntervalMenu { get; set; }
 
+        public ObservableCollection<MenuItem> TextColorMenu { get; set; }
+
         public VMSpeedViewMenu()
         {
             AdapterListMenu = new ObservableCollection<Control>();
             RefreshIntervalMenu = new ObservableCollection<MenuItem>();
+            TextColorMenu = new ObservableCollection<MenuItem>();
             InitAdapterListMenu();
             InitRefreshIntervalMenu();
+            InitTextColorMenu();
         }
 
         private void InitAdapterListMenu()
@@ -55,6 +60,17 @@ namespace NetSpeed.ViewModel
                     CommandParameter = intervals[i],
                 });
             }
+        }
+
+        private void InitTextColorMenu()
+        {
+            ColorPicker colorPicker = new ColorPicker();
+            TextColorMenu.Add(colorPicker);
+
+            //TextColorMenu.Add(new MenuItem
+            //{
+            //    Header = $"1234",
+            //});
         }
 
         private void SetAdapterList()
