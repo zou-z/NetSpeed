@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace NetSpeed.ViewModel
@@ -29,7 +30,7 @@ namespace NetSpeed.ViewModel
         private void InitAdapterListMenu()
         {
             SetAdapterList();
-            AdapterListMenu.Add(new Separator { Margin = new Thickness(0, 7, 20, 7) });
+            AdapterListMenu.Add(new Separator { Margin = new Thickness(-30, 8, 0, 8), Background = new SolidColorBrush(Color.FromRgb(232, 232, 232)) });
             AdapterListMenu.Add(new MenuItem
             {
                 Header = "刷新列表",
@@ -93,7 +94,7 @@ namespace NetSpeed.ViewModel
             item.Header = "已刷新列表";
             item.Icon = "\xE930";
             item.IsEnabled = false;
-            DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1500) };
+            DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
             timer.Tick += (sender, e) =>
             {
                 timer.Stop();

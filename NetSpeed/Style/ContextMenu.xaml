@@ -10,14 +10,14 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type MenuItem}">
-                    <Grid x:Name="grid" Height="30" Background="White">
+                    <Grid x:Name="grid" Height="32" Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="36"/>
-                            <ColumnDefinition Width="*" MinWidth="80" MaxWidth="300"/>
-                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="32"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock x:Name="icon" Text="{TemplateBinding Icon}" FontSize="15" Foreground="Black" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock x:Name="header" Grid.Column="1" Text="{TemplateBinding Header}" Foreground="Black" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="header" Grid.Column="1" Text="{TemplateBinding Header}" Foreground="Black" VerticalAlignment="Center" MaxWidth="300" MinWidth="80" TextTrimming="CharacterEllipsis"/>
                         <TextBlock x:Name="has_items" Grid.Column="2" Visibility="Collapsed" Text="&#xE00F;" FontSize="11" Foreground="Black" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" TextOptions.TextFormattingMode="Display"/>
                         <Popup Placement="Right" x:Name="SubMenuPopup" AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsSubmenuOpen}">
                             <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled">
