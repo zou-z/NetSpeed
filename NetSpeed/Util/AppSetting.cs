@@ -6,6 +6,7 @@ namespace NetSpeed.Util
     internal sealed class AppSetting : AppSettingBase<AppConfig>
     {
         private static NetworkInterface selectedAdapter;
+
         public struct RefreshIntervals
         {
             public const int Interval_1000 = 1000;

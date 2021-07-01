@@ -50,8 +50,8 @@ namespace NetSpeed.ViewModel
                     Icon = AppSetting.RefreshInterval == intervals[i] ? "\xE001" : null,
                     ToolTip = intervals[i] == AppSetting.RefreshIntervals.Default ? "默认值" : null,
                     StaysOpenOnClick = true,
-                    //Command = new RelayCommand<int>(RestartTimer),
-                    //CommandParameter = intervals[i],
+                    Command = new RelayCommand<int>(SelectRefreshInterval),
+                    CommandParameter = intervals[i],
                 });
             }
         }
@@ -110,7 +110,7 @@ namespace NetSpeed.ViewModel
             for (int i = 0; i < AdapterListMenu.Count - 2; ++i)
             {
                 MenuItem item = (MenuItem)AdapterListMenu[i];
-                item.Icon = item.CommandParameter.ToString() == adapterId ? "\xE001" : null;
+                item.Icon = (string)item.CommandParameter == adapterId ? "\xE001" : null;
                 if (AppSetting.AdapterList[i].Id == adapterId)
                 {
                     AppSetting.SelectedAdapter = AppSetting.AdapterList[i];
@@ -119,6 +119,16 @@ namespace NetSpeed.ViewModel
             }
         }
 
+        private void SelectRefreshInterval(int interval)
+        {
+            for (int i = 0; i < RefreshIntervalMenu.Count; ++i)
+            {
+                MenuItem item = RefreshIntervalMenu[i];
+                item.Icon = (int)item.CommandParameter == interval? "\xE001" : null;
+            }
+            AppSetting.RefreshInterval = interval;
+            RestartTimer?.Invoke();
+        }
 
 
 
