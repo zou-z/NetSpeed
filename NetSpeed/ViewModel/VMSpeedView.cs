@@ -7,6 +7,7 @@ namespace NetSpeed.ViewModel
     {
         private readonly string[] Units = { "B/S", "KB/S", "MB/S", "GB/S" };
         private readonly AppTimer appTimer;
+        private ISpeedViewMenu speedViewMenu;
         private string uploadSpeedText;
         private string downloadSpeedText;
 
@@ -34,7 +35,9 @@ namespace NetSpeed.ViewModel
 
         public void Inject(ISpeedViewMenu speedViewMenu)
         {
-            //this.speedViewMenu = speedViewMenu;
+            this.speedViewMenu = speedViewMenu;
+            this.speedViewMenu.RestartTimer += () => { appTimer.Restart(); };
+
             //this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(), netInfo.GetAdapter());
             //this.speedViewMenu.SelectedAdapter += SpeedViewMenu_SelectedAdapter;
             //this.speedViewMenu.RefreshedAdapterList += () =>

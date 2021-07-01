@@ -10,7 +10,7 @@ using System.Windows.Threading;
 
 namespace NetSpeed.ViewModel
 {
-    internal class VMSpeedViewMenu : NotifyBase
+    internal class VMSpeedViewMenu : NotifyBase, ISpeedViewMenu
     {
         public event Action RestartTimer;
 
@@ -22,11 +22,11 @@ namespace NetSpeed.ViewModel
         {
             AdapterListMenu = new ObservableCollection<Control>();
             RefreshIntervalMenu = new ObservableCollection<MenuItem>();
-            SetAdapterListMenu();
-            SetRefreshIntervalMenu();
+            InitAdapterListMenu();
+            InitRefreshIntervalMenu();
         }
 
-        private void SetAdapterListMenu()
+        private void InitAdapterListMenu()
         {
             SetAdapterList();
             AdapterListMenu.Add(new Separator { Margin = new Thickness(0, 7, 20, 7) });
@@ -39,28 +39,7 @@ namespace NetSpeed.ViewModel
             });
         }
 
-        private void SetAdapterList()
-        {
-            while (AdapterListMenu.Count > 2)
-            {
-                AdapterListMenu.RemoveAt(0);
-            }
-            for (int i = 0; i < AppSetting.AdapterList.Length; ++i)
-            {
-                MenuItem item = new MenuItem
-                {
-                    Header = AppSetting.AdapterList[i].Description,
-                    Icon = AppSetting.AdapterList[i].Id == AppSetting.SelectedAdapter.Id ? "\xE001" : null,
-                    ToolTip = AppSetting.AdapterList[i].GetDetail(),
-                    StaysOpenOnClick = true,
-                    //Command = 
-                    //CommandParameter = 
-                };
-                AdapterListMenu.Insert(0, item);
-            }
-        }
-
-        private void SetRefreshIntervalMenu()
+        private void InitRefreshIntervalMenu()
         {
             int[] intervals = AppSetting.RefreshIntervals.GetValues();
             for (int i = 0; i < intervals.Length; ++i)
@@ -77,6 +56,26 @@ namespace NetSpeed.ViewModel
             }
         }
 
+        private void SetAdapterList()
+        {
+            while (AdapterListMenu.Count > 2)
+            {
+                AdapterListMenu.RemoveAt(0);
+            }
+            for (int i = 0; i < AppSetting.AdapterList.Length; ++i)
+            {
+                MenuItem item = new MenuItem
+                {
+                    Header = AppSetting.AdapterList[i].Description,
+                    Icon = AppSetting.AdapterList[i].Id == AppSetting.SelectedAdapter.Id ? "\xE001" : null,
+                    ToolTip = AppSetting.AdapterList[i].GetDetail(),
+                    StaysOpenOnClick = true,
+                    Command = new RelayCommand<string>(SelectAdapter),
+                    CommandParameter = AppSetting.AdapterList[i].Id
+                };
+                AdapterListMenu.Insert(i, item);
+            }
+        }
 
         private void RefreshAdapterList()
         {
@@ -85,16 +84,10 @@ namespace NetSpeed.ViewModel
                 RestartTimer?.Invoke();
             }
             SetAdapterList();
-            RefreshAdapterListTip();
+            ShowRefreshAdapterListTip();
         }
 
-
-
-
-
-
-
-        private void RefreshAdapterListTip()
+        private void ShowRefreshAdapterListTip()
         {
             MenuItem item = (MenuItem)AdapterListMenu[AdapterListMenu.Count - 1];
             item.Header = "已刷新列表";
@@ -112,7 +105,19 @@ namespace NetSpeed.ViewModel
             timer.Start();
         }
 
-
+        private void SelectAdapter(string adapterId)
+        {
+            for (int i = 0; i < AdapterListMenu.Count - 2; ++i)
+            {
+                MenuItem item = (MenuItem)AdapterListMenu[i];
+                item.Icon = item.CommandParameter.ToString() == adapterId ? "\xE001" : null;
+                if (AppSetting.AdapterList[i].Id == adapterId)
+                {
+                    AppSetting.SelectedAdapter = AppSetting.AdapterList[i];
+                    RestartTimer?.Invoke();
+                }
+            }
+        }
 
 
 

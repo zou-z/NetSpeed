@@ -42,7 +42,7 @@ namespace NetSpeed.View
             {
                 new MenuItem { Header = "网络适配器", Icon = "\xEDA3", ItemsSource = AdapterListMenu },
                 new MenuItem { Header = "刷新间隔", Icon = "", ItemsSource = RefreshIntervalMenu },
-                new MenuItem { Header = "字体颜色", Icon = "" },
+                new MenuItem { Header = "文本颜色", Icon = "" },
                 new MenuItem { Header = "关于", Icon = "\xE946" }
             };
         }
