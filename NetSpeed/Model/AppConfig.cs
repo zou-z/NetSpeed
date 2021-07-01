@@ -12,6 +12,9 @@
         /// </summary>
         public int RefreshInterval { get; set; }
 
-        // 字体颜色
+        /// <summary>
+        /// 文本颜色
+        /// </summary>
+        public string TextColor { get; set; }
     }
 }

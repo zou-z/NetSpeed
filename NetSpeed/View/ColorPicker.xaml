@@ -1,10 +1,11 @@
 ﻿<MenuItem x:Class="NetSpeed.View.ColorPicker"
-             x:ClassModifier="internal"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NetSpeed.View">
+          x:ClassModifier="internal"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+          xmlns:local="clr-namespace:NetSpeed.View"
+          DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <MenuItem.Resources>
         <Style x:Key="DefaultSliderStyle" TargetType="{x:Type Slider}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -89,6 +90,29 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="RestoreButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Content" Value="&#xE149;"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="ToolTip" Value="恢复默认值"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Width="24" Height="24" CornerRadius="12" Background="White">
+                            <TextBlock Text="{TemplateBinding Content}" FontSize="14" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="Gainsboro"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="Silver"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </MenuItem.Resources>
     <MenuItem.Style>
         <Style TargetType="{x:Type MenuItem}">
@@ -104,25 +128,9 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Ellipse Grid.Column="0" Width="16" Height="16" Fill="BlueViolet"/>
+                                <Ellipse Grid.Column="0" Width="16" Height="16" Fill="{Binding Path=SelectedColor,Mode=OneWay}" Stroke="{Binding Path=SelectedColorReverse,Mode=OneWay}" StrokeThickness="1"/>
                                 <TextBlock Grid.Column="1" Text="#FF0000" VerticalAlignment="Center" Margin="5,0,10,0"/>
-                                <Button Grid.Column="2" FocusVisualStyle="{x:Null}" ToolTip="恢复默认值">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border x:Name="border" Width="24" Height="24" CornerRadius="12" Background="White">
-                                                <TextBlock Text="&#xE149;" FontSize="14" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="Gainsboro"/>
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="Silver"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                <Button Grid.Column="2" Style="{StaticResource RestoreButtonStyle}"/>
                             </Grid>
                             <Grid Margin="0,2,0,0">
                                 <Grid.ColumnDefinitions>

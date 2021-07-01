@@ -67,10 +67,6 @@ namespace NetSpeed.ViewModel
             ColorPicker colorPicker = new ColorPicker();
             TextColorMenu.Add(colorPicker);
 
-            //TextColorMenu.Add(new MenuItem
-            //{
-            //    Header = $"1234",
-            //});
         }
 
         private void SetAdapterList()

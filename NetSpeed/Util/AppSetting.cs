@@ -1,11 +1,13 @@
 ﻿using NetSpeed.Model;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 
 namespace NetSpeed.Util
 {
     internal sealed class AppSetting : AppSettingBase<AppConfig>
     {
         private static NetworkInterface selectedAdapter;
+        private static readonly string defaultTextColor = "#FFFFFF";
 
         public struct RefreshIntervals
         {
@@ -51,25 +53,47 @@ namespace NetSpeed.Util
             }
         }
 
+        public static string TextColor
+        {
+            get => Instance.TextColor;
+            set
+            {
+                Instance.TextColor = value;
+                SaveInstance(Instance);
+            }
+        }
+
         public static void Init()
         {
             SettingFilePath = "NetSpeed.json";
-            Instance = LoadInstance();
+            try
+            {
+                Instance = LoadInstance();
+            }
+            catch
+#if DEBUG
+            (System.Exception ex)
+#endif
+            {
+#if DEBUG
+                System.Windows.MessageBox.Show(ex.Message);
+#endif
+                Instance = new AppConfig();
+            }
             InitSetting();
         }
 
         private static void InitSetting()
         {
-            // 初始化适配器列表
             AdapterList = NetworkInterface.GetAllNetworkInterfaces();
-            // 初始化已选择或默认适配器（已选择的不存在时选默认的）
             SetSelectedOrDefaultAdapter();
-            // 刷新间隔
             RefreshInterval = RefreshInterval == 0 ? RefreshIntervals.Default : RefreshInterval;
-            // 字体颜色
-
+            SetSelectedOrDefaultTextColor();
         }
 
+        /// <summary>
+        /// 设置上次选择的网络设配器，如果没有则选择默认的网络适配器
+        /// </summary>
         private static void SetSelectedOrDefaultAdapter()
         {
             NetworkInterface defaultAdapter = null;
@@ -91,7 +115,19 @@ namespace NetSpeed.Util
         }
 
         /// <summary>
-        /// 更新网络适配器列表
+        /// 设置上次选择的文本颜色，如果为null或值不正确则选择默认的文本颜色
+        /// </summary>
+        private static void SetSelectedOrDefaultTextColor()
+        {
+            if (TextColor == null || TextColor.Length != 7 || TextColor[0] != '#' || !Regex.IsMatch(TextColor.Substring(1), "^[0-9a-fA-F]*$"))
+            {
+                TextColor = defaultTextColor;
+                return;
+            }
+        }
+
+        /// <summary>
+        /// 更新网络适配器列表（如果已选择的网络适配器不在新的列表中则选择默认的网络适配器）
         /// </summary>
         /// <returns>
         ///  true SelectedAdapter改变
