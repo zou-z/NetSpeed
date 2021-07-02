@@ -14,11 +14,8 @@ namespace NetSpeed.Util
         private long bytesSent = 0;
         private long bytesReceived = 0;
 
-        public bool IsRunning { get; private set; }
-
         public AppTimer()
         {
-            IsRunning = false;
             timer = new Timer(Timer_Tick, null, -1, 0);
         }
 
@@ -43,16 +40,12 @@ namespace NetSpeed.Util
             bytesSent = statistics.BytesSent;
             bytesReceived = statistics.BytesReceived;
 
-            if (timer?.Change(AppSetting.RefreshInterval, AppSetting.RefreshInterval) == true)
-            {
-                IsRunning = true;
-            }
+            _ = (timer?.Change(AppSetting.RefreshInterval, AppSetting.RefreshInterval));
         }
 
         public void Stop()
         {
             _ = timer?.Change(-1, 0);
-            IsRunning = false;
         }
 
         public void Restart()
@@ -67,6 +60,7 @@ namespace NetSpeed.Util
             timer?.Dispose();
             timer = null;
             statistics = null;
+            selectedAdapter = null;
         }
     }
 }

@@ -58,9 +58,6 @@
     <Compile Include="Util\CSDeskBand.cs" />
     <Compile Include="Interface\ISpeedViewMenu.cs" />
     <Compile Include="Model\AppConfig.cs" />
-    <Compile Include="Module\About.xaml.cs">
-      <DependentUpon>About.xaml</DependentUpon>
-    </Compile>
     <Compile Include="NetSpeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\AppSetting.cs" />
@@ -73,6 +70,9 @@
     <Compile Include="ViewModel\VMLocator.cs" />
     <Compile Include="ViewModel\VMSpeedView.cs" />
     <Compile Include="ViewModel\VMSpeedViewMenu.cs" />
+    <Compile Include="View\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
@@ -82,13 +82,13 @@
     <Compile Include="View\SpeedViewMenu.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Module\About.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Style\ContextMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ColorPicker.xaml">
       <SubType>Designer</SubType>

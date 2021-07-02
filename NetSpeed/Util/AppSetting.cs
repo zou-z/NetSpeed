@@ -22,10 +22,10 @@ namespace NetSpeed.Util
             {
                 return new int[]
                 {
-                Interval_1000,
-                Interval_500,
-                Interval_200,
-                Interval_100
+                    Interval_1000,
+                    Interval_500,
+                    Interval_200,
+                    Interval_100
                 };
             }
         }

@@ -82,5 +82,10 @@ namespace NetSpeed.ViewModel
             }
             return $"0.00 {Units[0]}";
         }
+
+        public void Close()
+        {
+            appTimer.Close();
+        }
     }
 }

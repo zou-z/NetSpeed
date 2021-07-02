@@ -136,7 +136,7 @@ namespace NetSpeed.ViewModel
             for (int i = 0; i < RefreshIntervalMenu.Count; ++i)
             {
                 MenuItem item = RefreshIntervalMenu[i];
-                item.Icon = (int)item.CommandParameter == interval? "\xE001" : null;
+                item.Icon = (int)item.CommandParameter == interval ? "\xE001" : null;
             }
             AppSetting.RefreshInterval = interval;
             RestartTimer?.Invoke();

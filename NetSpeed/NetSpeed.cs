@@ -1,5 +1,6 @@
 ﻿using CSDeskBand;
 using NetSpeed.View;
+using NetSpeed.ViewModel;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -10,7 +11,6 @@ namespace NetSpeed
     [CSDeskBandRegistration(Name = "实时网速")]
     public class NetSpeed : CSDeskBandWpf
     {
-        //private readonly MainView mainView;
         private readonly SpeedView speedView;
         protected override UIElement UIElement => speedView;
 
@@ -23,26 +23,16 @@ namespace NetSpeed
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                _ = MessageBox.Show(e.Message);
             }
-
-            Window window = new Window
-            {
-                Content = new System.Windows.Controls.TextBlock
-                {
-                    Text = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
-                }
-            };
-            window.Show();
         }
 
         protected override void DeskbandOnClosed()
         {
-            //speedView.ReleaseResources();
-
-
+            VMLocator.VMSpeedView.Close();
         }
-
-        public static readonly object SpeedView = new SpeedView();
+#if DEBUG
+        public static readonly FrameworkElement SpeedView = new SpeedView();
+#endif
     }
 }

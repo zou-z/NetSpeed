@@ -1,0 +1,41 @@
+﻿<MenuItem x:Class="NetSpeed.View.About"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetSpeed.View"
+             DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <MenuItem.Resources>
+        <Style x:Key="TextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="LineHeight" Value="18"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style x:Key="VersionTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextStyle}">
+            <Setter Property="Text" Value="{Binding Path=Version,Mode=OneTime,StringFormat=版本 {0}}"/>
+            <Setter Property="ToolTip" Value="{Binding Path=UrlTip,Mode=OneTime}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations" Value="Underline"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </MenuItem.Resources>
+    <MenuItem.Style>
+        <Style TargetType="{x:Type MenuItem}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type MenuItem}">
+                        <StackPanel Margin="12,0">
+                            <TextBlock Text="NetSpeed" Style="{StaticResource TextStyle}"/>
+                            <TextBlock Style="{StaticResource VersionTextStyle}" MouseLeftButtonUp="OpenUrl_Click"/>
+                            <TextBlock Text="© 2021 zzh" Style="{StaticResource TextStyle}"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>    
+    </MenuItem.Style>
+</MenuItem>

@@ -1,7 +1,10 @@
-﻿using NetSpeed.ViewModel;
+﻿using NetSpeed.Util;
+using NetSpeed.ViewModel;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -51,8 +54,14 @@ namespace NetSpeed.View
                 new MenuItem { Header = "刷新间隔", Icon = "\xE2AD", ItemsSource = RefreshIntervalMenu },
                 new MenuItem { Header = "文本颜色", Icon = "\xE8D3", ItemsSource = TextColorMenu },
                 new Separator { Margin = new Thickness(-30, 8, 0, 8), Background = new SolidColorBrush(Color.FromRgb(232, 232, 232)) },
-                new MenuItem { Header = "关于", Icon = "\xE946" }
+                new MenuItem { Header = "打开文件位置", Icon = "\xE838", Command = new RelayCommand(OpenInExplorer) },
+                new MenuItem { Header = "关于", Icon = "\xE946", ItemsSource = new List<MenuItem>(){ new About() } },
             };
+        }
+
+        private void OpenInExplorer()
+        {
+            _ = Process.Start("Explorer", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
     }
 }
