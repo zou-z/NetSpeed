@@ -1,10 +1,5 @@
 # NetSpeed
 
-
-**正在重构项目...**
-
-
-
 系统任务栏实时网速显示工具
 
 ## 截图
@@ -25,6 +20,8 @@
 | NetSpeed.dll  | 程序dll文件  |
 | uninstall.cmd | 程序卸载文件 |
 
+运行之后在同一个文件夹内会生成一个用于保存设置的NetSpeed.json文件。
+
 ## 使用方法
 
 ### 安装
@@ -38,7 +35,7 @@
 
 ### 卸载
 
-1. 以`管理员身份`运行uninstall.cmd文件。
+1. 关闭程序后，以`管理员身份`运行uninstall.cmd文件。
 
 ### 程序的运行与关闭
 
@@ -46,35 +43,18 @@
 
 ![程序的运行方法](Images/image3.png)
 
-## 作为用户控件
-
-本程序可作为用户控件使用，具体步骤如下：
-
-1. 在项目的引用(.Net Framework项目)或依赖(.Net Core或.Net5项目)中添加压缩包中的dll文件。
-
-2. 在xaml中添加ContentControl标签：
-
-   ```xml
-   <ContentControl x:Name="contentControl"/>
-   ```
-
-3. 实例化并在ContentControl中显示：
-
-   ```csharp
-   NetSpeed.Module.MainView mainView = new NetSpeed.Module.MainView();
-   contentControl.Content = mainView;
-   ```
-
-// 砍掉
-
 ## 备注
 
-* 如果注册了dll，那么在重新生成项目之前或是删除dll文件之前，需要在任务管理器中重启文件管理器(explorer)。因为它会占用dll文件。
+* 如果注册了dll，那么在重新生成项目之前或是删除dll文件之前，需要在任务管理器中重启文件管理器(explorer)，因为它会占用dll文件。
+
 * 注册命令中`/codebase`参数不可缺少（否则无法运行）。与没有此参数的命令的执行结果相比注册表中会多一个记录dll路径的codebase项。
 
-   
 
-   
+## 常见问题
+
+* 卸载旧版后再安装新版，为什么启动后还是旧版？
+
+  文件管理器(explorer)缓存了程序的dll文件，卸载旧版后需要重启下电脑，然后安装新版本。
 
    
 
