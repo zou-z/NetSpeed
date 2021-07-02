@@ -84,7 +84,7 @@
                                     </Thumb>
                                 </Track.Thumb>
                             </Track>
-                            <TextBlock Grid.Column="1" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Value,StringFormat={}{0:F0}}" Width="21" TextAlignment="Center" Foreground="Black" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBlock Grid.Column="1" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Value}" Width="21" TextAlignment="Center" Foreground="Black" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -129,8 +129,8 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Ellipse Grid.Column="0" Width="16" Height="16" Fill="{Binding Path=SelectedColor,Mode=OneWay}" Stroke="{Binding Path=SelectedColorReverse,Mode=OneWay}" StrokeThickness="1"/>
-                                <TextBlock Grid.Column="1" Text="#FF0000" VerticalAlignment="Center" Margin="5,0,10,0"/>
-                                <Button Grid.Column="2" Style="{StaticResource RestoreButtonStyle}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Path=SelectedColorText,Mode=OneWay}" VerticalAlignment="Center" Margin="5,0,10,0"/>
+                                <Button Grid.Column="2" Command="{Binding ResetColorCommand}" Style="{StaticResource RestoreButtonStyle}"/>
                             </Grid>
                             <Grid Margin="0,2,0,0">
                                 <Grid.ColumnDefinitions>
@@ -138,7 +138,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="R" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <Slider Grid.Column="1" Style="{StaticResource DefaultSliderStyle}"/>
+                                <Slider Grid.Column="1" Value="{Binding Path=SelectedR,Mode=TwoWay}" Style="{StaticResource DefaultSliderStyle}"/>
                             </Grid>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -146,7 +146,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="G" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <Slider Grid.Column="1" Style="{StaticResource DefaultSliderStyle}"/>
+                                <Slider Grid.Column="1" Value="{Binding Path=SelectedG,Mode=TwoWay}" Style="{StaticResource DefaultSliderStyle}"/>
                             </Grid>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -154,7 +154,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="B" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <Slider Grid.Column="1" Style="{StaticResource DefaultSliderStyle}"/>
+                                <Slider Grid.Column="1" Value="{Binding Path=SelectedB,Mode=TwoWay}" Style="{StaticResource DefaultSliderStyle}"/>
                             </Grid>
                         </StackPanel>
                     </ControlTemplate>

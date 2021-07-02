@@ -7,7 +7,7 @@ namespace NetSpeed.Util
     internal sealed class AppSetting : AppSettingBase<AppConfig>
     {
         private static NetworkInterface selectedAdapter;
-        private static readonly string defaultTextColor = "#FFFFFF";
+        public static readonly string DefaultTextColor = "#FFFFFF";
 
         public struct RefreshIntervals
         {
@@ -121,7 +121,7 @@ namespace NetSpeed.Util
         {
             if (TextColor == null || TextColor.Length != 7 || TextColor[0] != '#' || !Regex.IsMatch(TextColor.Substring(1), "^[0-9a-fA-F]*$"))
             {
-                TextColor = defaultTextColor;
+                TextColor = DefaultTextColor;
                 return;
             }
         }

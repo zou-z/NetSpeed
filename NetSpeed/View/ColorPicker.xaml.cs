@@ -20,18 +20,18 @@ namespace NetSpeed.View
 {
     internal partial class ColorPicker : MenuItem, INotifyPropertyChanged
     {
-        private Color color;
+        public event Action UpdateTextColor;
         private Brush selectedColor;
         private Brush selectedColorReverse;
+        private string selectedColorText;
+        private byte selectedR;
+        private byte selectedG;
+        private byte selectedB;
 
         public Brush SelectedColor
         {
             get => selectedColor;
-            set
-            {
-                Set(ref selectedColor, value);
-                SelectedColorReverse = new SolidColorBrush(Color.FromRgb((byte)(255 - color.R), (byte)(255 - color.G), (byte)(255 - color.B)));
-            }
+            set => Set(ref selectedColor, value);
         }
 
         public Brush SelectedColorReverse
@@ -40,11 +40,46 @@ namespace NetSpeed.View
             set => Set(ref selectedColorReverse, value);
         }
 
+        public string SelectedColorText
+        {
+            get => selectedColorText;
+            set => Set(ref selectedColorText, value);
+        }
 
+        public byte SelectedR
+        {
+            get => selectedR;
+            set
+            {
+                _ = Set(ref selectedR, value);
+                ApplyNewColor();
+            }
+        }
 
+        public byte SelectedG
+        {
+            get => selectedG;
+            set
+            {
+                _ = Set(ref selectedG, value);
+                ApplyNewColor();
+            }
+        }
 
+        public byte SelectedB
+        {
+            get => selectedB;
+            set
+            {
+                _ = Set(ref selectedB, value);
+                ApplyNewColor();
+            }
+        }
 
+        private RelayCommand resetColorCommand;
+        public RelayCommand ResetColorCommand => resetColorCommand ?? (resetColorCommand = new RelayCommand(() => { Init(AppSetting.DefaultTextColor); }));
 
+        #region 属性更改通知
         public event PropertyChangedEventHandler PropertyChanged;
         private bool Set<T>(ref T field, T newValue, [CallerMemberName] string propertyName = "")
         {
@@ -53,24 +88,44 @@ namespace NetSpeed.View
                 return false;
             }
             field = newValue;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            RaisePropertyChanged(propertyName);
             return true;
         }
+        private void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
 
         public ColorPicker()
         {
             InitializeComponent();
-            color = ColorUtil.HexToDecColor(AppSetting.TextColor);
-            // 初始化圆的颜色
-            SelectedColor = new SolidColorBrush(color);
-            // 初始化十六进制
-            // 初始化十进制
-
+            Init(AppSetting.TextColor);
         }
 
-        // 颜色更新通知
-        // 重置颜色命令
+        private void Init(string hexColor)
+        {
+            Color color = ColorUtil.HexToDecColor(hexColor);
+            selectedR = color.R;
+            selectedG = color.G;
+            selectedB = color.B;
+            RaisePropertyChanged("SelectedR");
+            RaisePropertyChanged("SelectedG");
+            RaisePropertyChanged("SelectedB");
+            ApplyNewColor(false);
+        }
 
-
+        private void ApplyNewColor(bool isUpdate = true)
+        {
+            Color color = new Color { A = 255, R = SelectedR, G = SelectedG, B = SelectedB };
+            SelectedColor = new SolidColorBrush(color);
+            SelectedColorReverse = new SolidColorBrush(Color.FromRgb((byte)(255 - color.R), (byte)(255 - color.G), (byte)(255 - color.B)));
+            SelectedColorText = ColorUtil.DecToHexColor(color);
+            if (isUpdate)
+            {
+                // AppSetting
+                // Update View
+            }
+        }
     }
 }
