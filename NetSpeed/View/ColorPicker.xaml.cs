@@ -109,7 +109,7 @@ namespace NetSpeed.View
         {
             Color color = new Color { A = 255, R = SelectedR, G = SelectedG, B = SelectedB };
             SelectedColor = new SolidColorBrush(color);
-            SelectedColorReverse = new SolidColorBrush(Color.FromRgb((byte)(255 - color.R), (byte)(255 - color.G), (byte)(255 - color.B)));
+            SelectedColorReverse = new SolidColorBrush(Color.FromRgb((byte)~color.R, (byte)~ color.G, (byte)~color.B));
             SelectedColorText = ColorUtil.DecToHexColor(color);
             if (isUpdate)
             {

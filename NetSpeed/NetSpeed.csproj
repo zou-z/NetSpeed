@@ -55,25 +55,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\CSDeskBand.cs" />
-    <Compile Include="Core\NetInfo.cs" />
-    <Compile Include="Interface\INetInfo.cs" />
+    <Compile Include="Util\CSDeskBand.cs" />
     <Compile Include="Interface\ISpeedViewMenu.cs" />
     <Compile Include="Model\AppConfig.cs" />
     <Compile Include="Module\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Module\ColorSelector.xaml.cs">
-      <DependentUpon>ColorSelector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Module\ColorSlider.xaml.cs">
-      <DependentUpon>ColorSlider.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Module\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Module\NetSpeedMenu.xaml.cs">
-      <DependentUpon>NetSpeedMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="NetSpeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,22 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Module\About.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Module\ColorSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Module\ColorSlider.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Module\MainView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Module\NetSpeedMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,4 @@
 ﻿using CSDeskBand;
-using NetSpeed.Module;
 using NetSpeed.View;
 using System;
 using System.Runtime.InteropServices;

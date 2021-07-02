@@ -128,7 +128,11 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Ellipse Grid.Column="0" Width="16" Height="16" Fill="{Binding Path=SelectedColor,Mode=OneWay}" Stroke="{Binding Path=SelectedColorReverse,Mode=OneWay}" StrokeThickness="1"/>
+                                <Ellipse Grid.Column="0" Width="16" Height="16" Fill="{Binding Path=SelectedColor,Mode=OneWay}" Stroke="{Binding Path=SelectedColorReverse,Mode=OneWay}" StrokeThickness="0">
+                                    <Ellipse.Effect>
+                                        <DropShadowEffect Color="Black" Opacity="0.4" ShadowDepth="0" BlurRadius="6"/>
+                                    </Ellipse.Effect>
+                                </Ellipse>
                                 <TextBlock Grid.Column="1" Text="{Binding Path=SelectedColorText,Mode=OneWay}" VerticalAlignment="Center" Margin="5,0,10,0"/>
                                 <Button Grid.Column="2" Command="{Binding ResetColorCommand}" Style="{StaticResource RestoreButtonStyle}"/>
                             </Grid>
