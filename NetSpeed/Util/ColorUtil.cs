@@ -15,7 +15,10 @@ namespace NetSpeed.Util
             };
         }
 
-        public static string DecToHexColor(Color decColor) => $"#{DecToHex(decColor.R)}{DecToHex(decColor.G)}{DecToHex(decColor.B)}";
+        public static string DecToHexColor(Color decColor)
+        {
+            return $"#{DecToHex(decColor.R)}{DecToHex(decColor.G)}{DecToHex(decColor.B)}";
+        }
 
         private static int HexToDec(string hex)
         {

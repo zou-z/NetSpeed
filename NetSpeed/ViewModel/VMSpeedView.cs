@@ -1,5 +1,6 @@
 ﻿using NetSpeed.Interface;
 using NetSpeed.Util;
+using System.Windows.Media;
 
 namespace NetSpeed.ViewModel
 {
@@ -10,7 +11,7 @@ namespace NetSpeed.ViewModel
         private ISpeedViewMenu speedViewMenu;
         private string uploadSpeedText;
         private string downloadSpeedText;
-
+        private Brush textColor;
 
         public string UploadSpeedText
         {
@@ -24,10 +25,17 @@ namespace NetSpeed.ViewModel
             set => Set(ref downloadSpeedText, value);
         }
 
+        public Brush TextColor
+        {
+            get => textColor;
+            set => Set(ref textColor, value);
+        }
+
         public VMSpeedView()
         {
             uploadSpeedText = "初始化...";
             downloadSpeedText = "初始化...";
+            SetTextColor();
             appTimer = new AppTimer();
             appTimer.UpdateSpeed += NetInfo_UpdateSpeed;
             appTimer.Start();
@@ -37,27 +45,14 @@ namespace NetSpeed.ViewModel
         {
             this.speedViewMenu = speedViewMenu;
             this.speedViewMenu.RestartTimer += () => { appTimer.Restart(); };
-
-            //this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(), netInfo.GetAdapter());
-            //this.speedViewMenu.SelectedAdapter += SpeedViewMenu_SelectedAdapter;
-            //this.speedViewMenu.RefreshedAdapterList += () =>
-            //{
-            //    this.speedViewMenu.UpdateAdapterList(netInfo.GetAdapterList(true), netInfo.GetAdapter());
-            //};
-            //this.speedViewMenu.RestartedTimer += () =>
-            //{
-            //    netInfo.Stop();
-            //    netInfo.Start();
-            //};
-            //netInfo.Start();
+            this.speedViewMenu.UpdateTextColor += SetTextColor;
         }
 
-        //private int SpeedViewMenu_SelectedAdapter(string adapterId)
-        //{
-        //    int result = netInfo.SetAdapter(adapterId);
-        //    netInfo.Start();
-        //    return result;
-        //}
+        private void SetTextColor()
+        {
+            Color color = ColorUtil.HexToDecColor(AppSetting.TextColor);
+            TextColor = new SolidColorBrush(color);
+        }
 
         private void NetInfo_UpdateSpeed(long upload, long download)
         {

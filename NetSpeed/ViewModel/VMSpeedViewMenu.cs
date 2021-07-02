@@ -2,9 +2,7 @@
 using NetSpeed.Util;
 using NetSpeed.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -15,6 +13,7 @@ namespace NetSpeed.ViewModel
     internal class VMSpeedViewMenu : NotifyBase, ISpeedViewMenu
     {
         public event Action RestartTimer;
+        public event Action UpdateTextColor;
 
         public ObservableCollection<Control> AdapterListMenu { get; set; }
 
@@ -65,8 +64,8 @@ namespace NetSpeed.ViewModel
         private void InitTextColorMenu()
         {
             ColorPicker colorPicker = new ColorPicker();
+            colorPicker.UpdateTextColor += () => { UpdateTextColor?.Invoke(); };
             TextColorMenu.Add(colorPicker);
-
         }
 
         private void SetAdapterList()
@@ -142,114 +141,5 @@ namespace NetSpeed.ViewModel
             AppSetting.RefreshInterval = interval;
             RestartTimer?.Invoke();
         }
-
-
-
-
-        /*
-        public void UpdateAdapterList(NetworkInterface[] adapters, NetworkInterface adapter)
-        {
-            while (adapterList.Count > 2)
-            {
-                adapterList.RemoveAt(0);
-            }
-            for (int i = 0; i < adapters.Length; ++i)
-            {
-                MenuItem item = new MenuItem
-                {
-                    Header = adapters[i].Description,
-                    Icon = adapters[i].Equals(adapter) ? "\xE001" : null,
-                    ToolTip = adapters[i].GetDetail(),
-                    StaysOpenOnClick = true,
-                    Command = new RelayCommand<string>(SelectAdapter),
-                    CommandParameter = adapters[i].Id,
-                };
-                adapterList.Insert(i, item);
-            }
-        }
-
-        private void SelectAdapter(string adapterId)
-        {
-            int? result = SelectedAdapter?.Invoke(adapterId);
-            if (result == null)
-            {
-                return;
-            }
-            if (result == 0)
-            {
-                for (int i = 0; i < adapterList.Count - 2; ++i)
-                {
-                    MenuItem item = (MenuItem)adapterList[i];
-                    item.Icon = item.CommandParameter.ToString() == adapterId ? "\xE001" : null;
-                }
-            }
-            else
-            {
-                adapterId = "切换网络适配器失败，";
-                switch (result)
-                {
-                    case 1: adapterId += "目标网络适配器为空"; break;
-                    case 2: adapterId += "网络适配器列表为空"; break;
-                    case 3: adapterId += "网络适配器列表中未找到目标网络适配器"; break;
-                    default: adapterId += "未知错误"; break;
-                }
-                _ = MessageBox.Show(adapterId);
-            }
-        }
-
-        private void RefreshAdapterList()
-        {
-            //if (RefreshedAdapterList == null)
-            //{
-            //    return;
-            //}
-            //MenuItem item = (MenuItem)Items[0].Items[Items[0].Items.Count - 1];
-            //item.Header = "正在刷新列表...";
-            //item.IsEnabled = false;
-
-            //_ = Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
-            //{
-            //    RefreshedAdapterList();
-            //    item.Header = "已刷新列表";
-            //    item.Icon = "\xE930";
-            //    DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1500) };
-            //    timer.Tick += (sender, e) =>
-            //    {
-            //        timer.Stop();
-            //        timer = null;
-            //        item.Header = "刷新列表";
-            //        item.Icon = "\xE149";
-            //        item.IsEnabled = true;
-            //    };
-            //    timer.Start();
-            //}));
-        }
-
-        private void RestartTimer(int interval)
-        {
-            foreach(MenuItem item in intervalList)
-            {
-                if(item.Icon == null)
-                {
-                    if((int)item.CommandParameter == interval)
-                    {
-                        item.Icon = "\xE001";
-                        AppSetting.RefreshInterval = interval;
-                        RestartedTimer();
-                    }
-                }
-                else
-                {
-                    if ((int)item.CommandParameter != interval)
-                    {
-                        item.Icon = null;
-                    }
-                }
-            }
-        }
-        */
-
-
-
     }
 }

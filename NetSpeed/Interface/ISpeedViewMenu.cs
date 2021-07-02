@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.NetworkInformation;
 
 namespace NetSpeed.Interface
 {
@@ -9,5 +8,10 @@ namespace NetSpeed.Interface
         /// 重启定时器事件
         /// </summary>
         event Action RestartTimer;
+
+        /// <summary>
+        /// 更新文本颜色事件
+        /// </summary>
+        event Action UpdateTextColor;
     }
 }

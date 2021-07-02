@@ -9,15 +9,16 @@
              DataContext="{Binding Source={x:Static vm:VMLocator.VMSpeedView}}"
              Height="40" Width="75">
     <UserControl.Resources>
-        <Style x:Key="ArrowTextStyle" TargetType="{x:Type TextBlock}">
+        <Style x:Key="TextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{Binding Path=TextColor,Mode=OneWay}"/>
+        </Style>
+        <Style x:Key="ArrowTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextStyle}">
             <Setter Property="FontSize" Value="9"/>
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-            <Setter Property="Foreground" Value="White"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
         </Style>
-        <Style x:Key="SpeedTextStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="White"/>
+        <Style x:Key="SpeedTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextStyle}">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="5,0,0,0"/>
             <Setter Property="TextAlignment" Value="Right"/>
@@ -27,11 +28,11 @@
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
         <WrapPanel>
             <TextBlock Text="&#xE74A;" Style="{StaticResource ArrowTextStyle}"/>
-            <TextBlock Text="{Binding Path=UploadSpeedText}" Style="{StaticResource SpeedTextStyle}"/>
+            <TextBlock Text="{Binding Path=UploadSpeedText,Mode=OneWay}" Style="{StaticResource SpeedTextStyle}"/>
         </WrapPanel>
         <WrapPanel>
             <TextBlock Text="&#xE74B;" Style="{StaticResource ArrowTextStyle}"/>
-            <TextBlock Text="{Binding Path=DownloadSpeedText}" Style="{StaticResource SpeedTextStyle}"/>
+            <TextBlock Text="{Binding Path=DownloadSpeedText,Mode=OneWay}" Style="{StaticResource SpeedTextStyle}"/>
         </WrapPanel>
     </StackPanel>
     <UserControl.ContextMenu>

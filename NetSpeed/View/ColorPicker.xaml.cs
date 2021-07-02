@@ -2,19 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace NetSpeed.View
 {
@@ -77,7 +67,7 @@ namespace NetSpeed.View
         }
 
         private RelayCommand resetColorCommand;
-        public RelayCommand ResetColorCommand => resetColorCommand ?? (resetColorCommand = new RelayCommand(() => { Init(AppSetting.DefaultTextColor); }));
+        public RelayCommand ResetColorCommand => resetColorCommand ?? (resetColorCommand = new RelayCommand(() => { Init(AppSetting.DefaultTextColor, true); }));
 
         #region 属性更改通知
         public event PropertyChangedEventHandler PropertyChanged;
@@ -103,7 +93,7 @@ namespace NetSpeed.View
             Init(AppSetting.TextColor);
         }
 
-        private void Init(string hexColor)
+        private void Init(string hexColor, bool isUpdate = false)
         {
             Color color = ColorUtil.HexToDecColor(hexColor);
             selectedR = color.R;
@@ -112,7 +102,7 @@ namespace NetSpeed.View
             RaisePropertyChanged("SelectedR");
             RaisePropertyChanged("SelectedG");
             RaisePropertyChanged("SelectedB");
-            ApplyNewColor(false);
+            ApplyNewColor(isUpdate);
         }
 
         private void ApplyNewColor(bool isUpdate = true)
@@ -123,8 +113,8 @@ namespace NetSpeed.View
             SelectedColorText = ColorUtil.DecToHexColor(color);
             if (isUpdate)
             {
-                // AppSetting
-                // Update View
+                AppSetting.TextColor = SelectedColorText;
+                UpdateTextColor?.Invoke();
             }
         }
     }
