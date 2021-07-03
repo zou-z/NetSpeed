@@ -18,6 +18,7 @@ namespace NetSpeed
         {
             try
             {
+                VMLocator.Init();
                 speedView = new SpeedView();
                 Options.MinHorizontalSize = new DeskBandSize(75, 40);
             }
@@ -32,7 +33,11 @@ namespace NetSpeed
             VMLocator.VMSpeedView.Close();
         }
 #if DEBUG
-        public static readonly FrameworkElement SpeedView = new SpeedView();
+        public static FrameworkElement GetSpeedView()
+        {
+            VMLocator.Init();
+            return new SpeedView();
+        }
 #endif
     }
 }

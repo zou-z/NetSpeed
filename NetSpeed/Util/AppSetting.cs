@@ -1,5 +1,7 @@
 ﻿using NetSpeed.Model;
+using System.IO;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace NetSpeed.Util
@@ -65,7 +67,7 @@ namespace NetSpeed.Util
 
         public static void Init()
         {
-            SettingFilePath = "NetSpeed.json";
+            SettingFilePath = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\NetSpeed.json";
             try
             {
                 Instance = LoadInstance();
