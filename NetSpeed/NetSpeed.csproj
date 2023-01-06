@@ -36,6 +36,7 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>zzh.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -67,6 +68,7 @@
     <Compile Include="Util\NetworkInterfaceExtend.cs" />
     <Compile Include="Util\NotifyBase.cs" />
     <Compile Include="Util\RelayCommand.cs" />
+    <Compile Include="Util\ScreenUtil.cs" />
     <Compile Include="ViewModel\VMLocator.cs" />
     <Compile Include="ViewModel\VMSpeedView.cs" />
     <Compile Include="ViewModel\VMSpeedViewMenu.cs" />
@@ -102,6 +104,5 @@
   <ItemGroup>
     <None Include="zzh.pfx" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

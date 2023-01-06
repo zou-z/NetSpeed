@@ -1,7 +1,9 @@
 ﻿using CSDeskBand;
+using NetSpeed.Util;
 using NetSpeed.View;
 using NetSpeed.ViewModel;
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -20,11 +22,12 @@ namespace NetSpeed
             {
                 VMLocator.Init();
                 speedView = new SpeedView();
-                Options.MinHorizontalSize = new DeskBandSize(75, 40);
+                var size = GetFinalSize(speedView.Width, speedView.Height);
+                Options.MinHorizontalSize = new DeskBandSize((int)(size.Width + 0.5), (int)(size.Height + 0.5));
             }
             catch (Exception e)
             {
-                _ = MessageBox.Show(e.Message);
+                _ = MessageBox.Show($"[NetSpeed]\r\n{e.Message}");
             }
         }
 
@@ -32,6 +35,16 @@ namespace NetSpeed
         {
             VMLocator.VMSpeedView.Close();
         }
+
+        private Size GetFinalSize(double width, double height)
+        {
+            int[] dpi = ScreenUtil.GetDpi();
+            double scaleX = dpi[0] / 96d;
+            double scaleY = dpi[1] / 96d;
+            Debug.WriteLine($"[NetSpeed] DpiX = {dpi[0]}, DpiY = {dpi[1]}, ScaleX = {scaleX}, ScaleY = {scaleY}");
+            return new Size(width * scaleX, height * scaleY);
+        }
+
 #if DEBUG
         public static FrameworkElement GetSpeedView()
         {
